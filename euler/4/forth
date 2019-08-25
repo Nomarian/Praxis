@@ -1,0 +1,71 @@
+
+: #ofdigits ( n -- ndigits )
+  0 swap
+    Begin
+      swap 1+ swap
+      10 /
+      dup 0=
+    until
+   drop
+;
+
+: .digits ( n -- )
+ dup #ofdigits dup rot
+ . ." is " . ." digit" 1 = 0= if ." s" then cr ;
+
+: chop ( N -- n-1 n1 )
+  ( leaves n-1d and d on stack )
+  dup 10 / swap 10 mod
+;
+
+: +digit  ( n1 n2 -- n2n1 )
+  10 * +
+;
+
+: flip ( N -- Z )
+  chop swap
+    dup
+    #ofdigits 0 do
+      chop
+      rot
+      +digit
+      swap
+    loop
+  +digit
+;
+
+: palindrome?	( N -- f )
+	( Palindromes do NOT begin with 0, so they dont end in 0 )
+	dup 10 mod	( N N%10 ) 
+	if	( N )
+		dup flip =
+	else
+		drop 0
+	then
+;
+
+: BiggestOne
+	0	( NMAX )
+	
+	1000 100 do
+	  I ( LI )
+	  dup 999 = if drop leave then
+		1000 I do	( NMAX LastI )
+			I over *	( NMAX LI I*LI )
+			dup	palindrome?	( NMAX LI I*LI f )
+			if		( NMAX LI I*LI )
+				rot	
+				max	
+				swap
+			else
+				drop
+			then	( NMAX LI )
+		loop
+	  drop	( NMAX LI -- NMAX )
+	loop	( NMAX )
+	." Biggest palindrome is " .
+;
+
+biggestone
+
+cr

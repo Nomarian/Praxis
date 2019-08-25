@@ -1,0 +1,7 @@
+#!/usr/bin/env brc
+# This is a module that i use a lot, it basically asks for input, Depending on X is running
+# $Menu -- What are the options we are picking from
+# $Pick -- Saved data
+if ( pgrep X > /dev/null ) {
+ Pick=`{ echo $Menu | tr -s ' ' '\n' | dmenu } } else {
+ echo $Menu ; Pick=`ask }

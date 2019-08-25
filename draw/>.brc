@@ -1,0 +1,25 @@
+#!/usr/bin/env brc
+
+
+limit	= 10
+sleep	= .30
+letter1	= x
+letter2	= x
+
+while ( true ) {
+	limit=`{ date '+%S' }
+
+	while (! ~ $#* $limit ) { 
+		sleep $sleep
+		*=($* ' ')
+		echo $* $letter1
+	}
+
+	while (! ~ $#* 0 ) { 
+		sleep $sleep
+		shift
+		echo $* $letter2
+	}
+
+}
+

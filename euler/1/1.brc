@@ -1,0 +1,17 @@
+#!/usr/bin/env brc
+
+s3=`{ seq 3 }
+s5=`{ seq 5 }
+
+fn main { exp=e$1 ; mu
+  while (!~ $#e$1 100?){
+	e$1=($e$1 $)
+	$exp=($$exp $#$exp)
+	echo $n^$1
+} }
+
+main 3
+main 5 
+
+	all=($n3 $n5)
+	echo $all

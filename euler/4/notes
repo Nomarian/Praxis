@@ -1,0 +1,8 @@
+
+1) Get a number
+2) get #ofdigits
+3) split and chop by half of digits
+4) invert chopped
+5) if chopped equals split then palindrome else not
+6) loopdeloop
+
