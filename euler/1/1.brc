@@ -1,5 +1,7 @@
 #!/usr/bin/env brc
 
+limit=10
+
 s3=`{ seq 3 }
 s5=`{ seq 5 }
 
@@ -12,6 +14,10 @@ fn main { exp=e$1 ; mu
 
 main 3
 main 5 
-
 	all=($n3 $n5)
 	echo $all
+
+fn purerc { # solution in pure rc
+}
+
+fn onlyseq {}
