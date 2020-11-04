@@ -1,3 +1,5 @@
+#!/usr/bin/env r3
+
 REBOL []
 
 main: func [arg [integer!]] [

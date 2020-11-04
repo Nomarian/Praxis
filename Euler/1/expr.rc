@@ -1,0 +1,23 @@
+#!/usr/bin/env brc
+
+fn use_seq {
+
+ limit=`{expr $1 - 1 }
+
+ a=`{ seq 3 3 $limit }
+ b=`{ seq 5 5 $limit }
+
+ # merge list a and b into c if items are not in c
+ # basically uniq
+ for (* in $a $b){ ~ $c $* || c=($c $*) }
+}
+
+fn use_expr {
+ use_seq $*
+ for (* in $a $b){ ~ $c $* || c=($c $*) }
+ sum = 0
+ for (* in $c) {sum = `{ expr $sum + $* } } # too many forks
+ echo $sum
+}
+
+use_expr 1000 # 2 seconds
