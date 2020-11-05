@@ -1,4 +1,4 @@
-#!/usr/bin/env brc
+#!/usr/bin/env rc
 
 fn use_seq {
 
