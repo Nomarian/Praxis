@@ -1,3 +1,4 @@
+#!/usr/bin/env lua
 
 function primepos(n)
  local function f(n)
@@ -14,7 +15,7 @@ function primepos(n)
   if f(i) then p,pn = i, pn+1 end
   i = i + 2
  end
- print(pn .. ": " .. p )
+ return p
 end
 
-primepos(10001)
+print(primepos(10001))

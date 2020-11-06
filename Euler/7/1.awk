@@ -1,4 +1,3 @@
-
 #!/usr/bin/awk -f
 
 function f(n,	i,limit) {

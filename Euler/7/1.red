@@ -1,7 +1,11 @@
-#!/usr/bin/env r3
-REBOL []
 
-isprime: func [n /local i limit] [
+Red []
+
+isprimeOdd: func [
+ n [integer!]
+ /local i limit
+ return: [logic!]
+] [
 ; wont test for 2 or 1 or even numbers
 ; this is a fast isprime finetuned for primepos
  i: 3
@@ -20,10 +24,11 @@ primepos: func [n [integer!]
  pn: 2 p: 3
  while [lesser? pn n] [
   p: p + 2
-  if isprime p [ pn: pn + 1 ]
+  if isprimeOdd p [ pn: pn + 1 ]
  ]
  p
 ]
 
-print primepos 10001
-; around 7 seconds
+print primepos 100
+; around 14 seconds
+
