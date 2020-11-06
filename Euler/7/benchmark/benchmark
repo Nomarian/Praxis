@@ -1,0 +1,24 @@
+#!/usr/bin/env rc
+
+fn time {
+ builtin time -p $* |[2] awk '{print "\t" $0 }'
+ echo
+}
+
+
+fn t1 { echo $1;shift; time $* }
+
+t1 c ./c
+t1 awk awk -f 1.awk
+t1 lua5.1 lua5.1 1.lua
+t1 lua5.2 lua5.2 1.lua
+t1 lua5.3 lua5.3 1.lua
+t1 lua5.4 lua5.4 1.lua
+t1 luajit luajit 1.lua
+t1 python2 python2 1.py
+t1 python3 python3 1.py
+
+t1 rebol rebol-core -q 1.reb
+t1 r3 r3 -q 1.reb
+t1 red64 red-stable 1.red
+
