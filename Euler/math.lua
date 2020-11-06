@@ -1,5 +1,21 @@
 #!/home/nmz/Run/CLI/lua5.4
 
+-- TODO
+-- lcm (using prime factors)
+-- isprime using a table (slow apparently?)
+-- Iterators
+ -- factors, primefactors
+
+function factors(n) -- Returns a list of factors
+ local t,limit = {{1,n}},math.floor(math.sqrt(n))
+ for i=2,limit do
+  if n%i==0 then
+   t[#t+1] = {i,math.ceil(n/i)}
+  end
+ end
+ return t
+end
+
 function isprimeu(n)
  for i=3,math.floor(math.sqrt(n)),2 do
   if n%i==0 then return false end
@@ -9,7 +25,7 @@ end
 
 function primepos(n)
  local p = n == 1 and 2 or 3
- n = n - p + 1
+ n = n - p + 1 -- we roll back n until it reaches 0
  while n>0 do
   p = p + 2
   if isprimeu(p) then n = n - 1 end
@@ -24,6 +40,7 @@ function isprime(n)
  return isprimeu(n)
 end
 
+-- print prime factors
 function pprimefactors(n)
  if n == 1 then print(n);return n end
  io.write(n .. " = ")
@@ -40,7 +57,7 @@ function pprimefactors(n)
  print(n)
 end
 
-function primefactors(n)
+function primefactors(n) -- returns table of prime factors
  local a,c = {},1
  if n > 1 then
   while not isprime(n) do
@@ -54,6 +71,7 @@ function primefactors(n)
  return a
 end
 
+-- print prime factors using primefactors()
 function ppprimefactors(n)
  io.write(n .. " = ")
  local t = primefactors(n)
@@ -61,6 +79,7 @@ function ppprimefactors(n)
  print(t[#t])
 end
 
+-- will sum all the squares
 function sumofsquares(n)
  return n*(n+1)*(2*n+1)/6
 end
@@ -70,6 +89,55 @@ function squareofsum(n)
  return n*n
 end
 
+-- Will return the nth fibonacci number (not good for repetitions)
+function fib(n)
+ local i1,i2 = 1,2
+ local sum = 0
+ while i1 < n do
+  if i1 % 2 == 0 then sum = sum + i1 end
+  i1,i2 = i2, i1 + i2
+ end
+ print(sum)
+end
+
+
+-- Fibonacci Iterator
+-- Return fibonacci position and number
+-- nil,limit if you want to stop at a number
+-- pos,nil if you want the nth fibonacci instead
+-- pos,limit if you want to stop at whichever
+function fibi(pos,limit) -- pos, number
+ local function nextfib(t)
+  t.a,t.b = t.b, t.a + t.b
+  return t.b
+ end
+
+ local function f1(t,i)
+  if i<pos then return i+1,nextfib(t) end
+  return nil
+ end
+
+ local function f2(t,i)
+  if nextfib(t)<limit then return i+1,t.b end
+  return nil
+ end
+
+ local function f0(t,i)
+  if i<pos and t.b<limit then
+   t.a,t.b = t.b, t.a + t.b
+   return i+1,t.b
+  end
+  return nil
+ end
+ 
+ -- pos,limit = pos or true,limit or true
+ -- just use f0?
+ 
+ local f = (pos and limit and f0) or (pos and f1) or (limit and f2)
+ return f,{a=0,b=1},0
+end
+
+-- TODO
 function lcm(t)
 -- unfinished
  local function counter(t)
@@ -84,4 +152,38 @@ function lcm(t)
  end
 end
 
-lcm{24,36}
+---------------------------------------------------
+
+primes = {2,3,5,7,11,13,17,19}
+
+-- checks if its prime but using primelist
+-- will also fill the prime list as required
+function isprimet(n) -- t/f if its prime
+ if n==1 then return false end
+ local limit = math.ceil( math.sqrt(n) )
+ for k,v in pairs(primes) do
+  if v==n then return true end
+  if n%v==0 then return false end
+  if v > limit then return true end
+ end
+ -- n is too big for prime hunt, fill primes until limit is reached
+
+ local function notinlist(z)
+  local limit = math.ceil( math.sqrt(z) )
+  for i,v in ipairs(primes) do
+   if z%v==0 then return false end
+   if v > limit then return true end
+  end
+ end
+ 
+ local i = primes[#primes]
+ repeat
+  i = i + 2
+  if notinlist(i) then
+   primes[#primes + 1] = i
+   if n%i==0 then return true end -- prime check
+  end
+ until i > limit
+ return false -- not divisible by new primes so its false 
+end
+
