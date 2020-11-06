@@ -43,7 +43,7 @@ function solution1(n){
 }
 
 BEGIN {
- print solution1(10)
+ print solution1(100)
  print "------"
  # print squareofsum(100)
 }
