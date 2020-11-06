@@ -1,0 +1,10 @@
+
+    A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+    Y P L T A V K R E Z G M S H U B X N C D I J F Q O W
+
+The scripts should be command arg prints converted arg to stdout
+if no args then everything in stdin gets converted and printed
+
+test string is a pangram
+Pack my box with five dozen liquor jugs
+it has every single letter

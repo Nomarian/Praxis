@@ -1,0 +1,10 @@
+#!/usr/bin/rc
+
+a=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz
+b=YPLTAVKREZGMSHUBXNCDIJFQOWypltavkrezgmshubxncdijfqow
+
+if (~ $#* 0) {
+ cat | tr $a $b
+} else {
+ echo $* | tr $a $b
+}
