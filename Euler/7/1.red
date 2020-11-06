@@ -1,13 +1,13 @@
+#!/usr/bin/env red-stable
 
 Red []
 
+; wont test for 2 or 1 or even numbers
 isprimeOdd: func [
  n [integer!]
  /local i limit
  return: [logic!]
 ] [
-; wont test for 2 or 1 or even numbers
-; this is a fast isprime finetuned for primepos
  i: 3
  limit: round/floor square-root n
  while [lesser-or-equal? i limit] [
@@ -17,18 +17,26 @@ isprimeOdd: func [
  return true
 ]
 
-primepos: func [n [integer!]
- /local p pn
- ] [
- if equal? n 1 [return 2]
- pn: 2 p: 3
- while [lesser? pn n] [
-  p: p + 2
-  if isprimeOdd p [ pn: pn + 1 ]
- ]
- p
+; wont test for 2 or 1 or even numbers
+isPrime: func [
+ n [integer!]
+ return: [logic!]
+] [
+ if lesser? n 3 [ return equal? n 2 ]
+ if zero? mod n 2 [ return false ]
+ return isprimeOdd n
 ]
 
-print primepos 100
-; around 14 seconds
+primepos: func [n [integer!]
+ /local p
+] [
+ if equal? n 1 [return 2]
+ n: n - 1
+ p: 1
+ while [greater? n 0] [
+  if isprimeOdd p: p + 2 [ n: n - 1 ]
+ ]
+ return p
+]
 
+print primepos 10001
