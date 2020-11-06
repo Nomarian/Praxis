@@ -1,0 +1,12 @@
+#!/usr/bin/rc
+
+# database should be copied to xorgs primary selection
+# each line is a password for each bandit
+# bandit0 is also there, so, bandit-1
+
+pass = `{ xsel -o }
+echo Selection: $pass
+
+*=`{ { for (* in yes no) { echo $* } } | slmenu -p 'save to db?' }
+
+~ $* yes && echo $pass >> db
