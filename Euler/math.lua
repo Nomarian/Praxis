@@ -137,19 +137,34 @@ function fibi(pos,limit) -- pos, number
  return f,{a=0,b=1},0
 end
 
--- TODO
-function lcm(t)
--- unfinished
- local function counter(t)
-  local t2 = {} -- n,power
-  for k,v in ipairs(t) do
-   t2[v] = t2[v] or 0 + 1
+-- converts a table of multipliers (sorted) to powers as in 2^2,3^1
+function topowers(t)
+ local keep = {}
+ for i=1,#t do
+  keep[ t[i] ] = (keep[ t[i] ] or 0) + 1
+ end
+ return keep
+end
+
+-- this uses the primefactor multiplication method
+function lcm(t) -- returns a number
+  local keep = topowers( primefactors( t[1] ) )
+  
+  for i=2,#t do -- loop through the rest
+    for num,pow in pairs( topowers( primefactors( t[i] ) ) ) do
+      if keep[num] then -- number is in keep table
+        if keep[num] < pow then -- bigger power, updating
+          keep[num] = pow 
+        end
+      else -- num is not in keep, saving
+        keep[num] = pow
+      end
+    end
   end
- end
- 
- for k,v in ipairs(t) do
-  counter(primefactors(v))
- end
+  
+  local z = 1
+  for num,pow in pairs(keep) do z = z * num ^ pow end
+  return math.floor(z)
 end
 
 ---------------------------------------------------
@@ -186,4 +201,3 @@ function isprimet(n) -- t/f if its prime
  until i > limit
  return false -- not divisible by new primes so its false 
 end
-
