@@ -90,14 +90,14 @@ function squareofsum(n)
 end
 
 -- Will return the nth fibonacci number (not good for repetitions)
+-- straightforward, non-recursive
 function fib(n)
- local i1,i2 = 1,2
- local sum = 0
+ local sum i1,i2 = 0, 1, 2
  while i1 < n do
   if i1 % 2 == 0 then sum = sum + i1 end
   i1,i2 = i2, i1 + i2
  end
- print(sum)
+ return sum
 end
 
 
