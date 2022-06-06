@@ -14,7 +14,7 @@ fn use_seq {
 
 fn use_dc {
  use_seq $*
- for (* in $a $b){ ~ $c $* || c=($c $*) }
+ for (* in $a $b){ ~ $c $* || c=($c $*) } # uniq
  c=$c^' +' # sum all the items in c
  dc -e '0 '^$^c^' p'
 }
