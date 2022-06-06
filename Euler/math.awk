@@ -54,17 +54,47 @@ function factors(n,	limit,a){
  # remember to split()
 }
 
-function factors(n,	limit,i){
+#function factors(n,	limit,i){
+# limit = int(sqrt(n))
+# for (i=2;i<limit;i++) {
+#  if (n%i==0) { print " " i ":" n/i }
+# }
+#}
+
+
+function isprimeuneven(n,	i,limit) {
  limit = int(sqrt(n))
- for (i=2;i<limit;i++) {
-  if (n%i==0) { print " " i ":" n/i }
- }
+
+ for (i=3;i <= limit;i+=2)
+  if (n%i==0) return 0
+ return 1
 }
+
 
 # isprimenumber (but only checks for uneven numbers)
 function isprimeu(n,	i,limit) {
  limit = int(sqrt(n))
- for (i=3;i <= limit;i+=2)
+
+ for (i=3;i <= limit && i < 15;i+=2)
+  if (n%i==0) return 0
+ if (i>limit) return 1 # because you just want 3,5,7,11,13
+
+ # 15,25,35 aren't sus, so this loop is for skipping them.
+ # i is 15
+ # going over the limit means that its probably a prime
+ for (;(i+=10) <= limit;){ # purposefully go over the limit
+  if (n%(i-8)==0) return 0
+  if (n%(i-6)==0) return 0
+  if (n%(i-4)==0) return 0
+  if (n%(i-2)==0) return 0
+
+# This is slower!?
+#  if ( 0 == ( n%(i-8) * n%(i-4) * n%(i-6) * n%(i-8)) ) return 0
+  # or maybe math.min? how do you min?
+ }
+
+ # i=3 and you'll have all the code you need.
+ for (i-=10;i <= limit;i+=2)
   if (n%i==0) return 0
  return 1
 }
@@ -74,6 +104,9 @@ function primepos(n,	p){
  while (n) isprimeu(p+=2) && n--
  return p
 }
+
+BEGIN { print primepos(10000) }
+#BEGIN { for (i=1;i<=10;i++) print i, primepos(i) }
 
 function isprime(n) {
  if (n<3) return n==2
