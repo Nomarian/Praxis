@@ -1,0 +1,24 @@
+
+isprime?: function [f][
+ z: 3
+ limit: floor sqrt f
+
+ while [lessOrEqual? z limit] [
+  if equal? 0 mod f z -> return false
+  z: z + 2
+ ]
+ return true
+]
+
+nthPrime: function [n][
+	i: new 1
+	x: 1
+
+	while [i<>n][
+		x: x + 2
+		if prime? x -> inc 'i
+	]
+	return x
+]
+
+print nthPrime 101

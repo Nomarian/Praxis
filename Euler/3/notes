@@ -1,0 +1,11 @@
+
+primefactor
+ should use primefiller
+ that is, isprime but it actually fills the list with primes until you get
+ a hit on a limit.
+ primeposdb(n) uses normal primepos and fills it but checks the db first
+ so its if #primes<n then return primes[n] end
+ while primepos()
+ the problem is primefill edits out the primes list...
+ return true false as a secondary item, true if primes list has been filled
+ NO, return number of items added to list

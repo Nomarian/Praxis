@@ -1,0 +1,5 @@
+#!/usr/bin/env rc
+
+# The idea here is to pipe the command to the to prove, if no piping is done
+# check hashes to prove the pipe or use -c or whatever
+
