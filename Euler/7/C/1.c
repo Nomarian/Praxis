@@ -5,7 +5,7 @@
 #include <math.h>
 
 // bool
-unsigned int isprime(unsigned int oddnum) {
+unsigned int isoddprime(unsigned int oddnum) {
 // tests from 3 onward, so the number should already be odd
 	double x = oddnum;
 	int limit = floor( sqrt(x) );
@@ -19,7 +19,7 @@ unsigned int primepos(unsigned int pos){
 	unsigned int prime = pos==1 ? 2 : 3;
 	pos -= prime - 1; // 2 is 1, 3 is 2
 	while (pos)
-		if (isprime(prime+=2))
+		if (isoddprime(prime+=2))
 			pos--;
 	return prime;
 }
