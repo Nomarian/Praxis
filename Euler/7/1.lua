@@ -1,21 +1,23 @@
 #!/usr/bin/env lua
 
-function primepos(n)
- local function f(n)
-  for i=3,math.floor(math.sqrt(n)),2 do
-   if n%i==0 then return false end
-  end
-  return true
- end
-
- local p,pn = 13, 6
- local i = p + 2
- local p = 3
- while pn<n do 
-  if f(i) then p,pn = i, pn+1 end
-  i = i + 2
- end
- return p
+local function getprimepos(pos) -- positive only
+	local function isoddprime(oddprime) -- wont test even numbers
+		for i=3,math.floor(math.sqrt(oddprime)),2 do
+			if oddprime%i==0 then
+				return false
+			end
+		end
+		return true
+	end
+	local prime = pos==1 and 2 or 3 -- starting prime
+	pos = pos - (prime - 1)
+	while pos>0 do
+		prime = prime + 2
+		if isoddprime(prime) then
+			pos = pos - 1
+		end
+	end
+	return prime
 end
 
-print(primepos(10001))
+print(getprimepos(10001))
